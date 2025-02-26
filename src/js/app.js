@@ -10,6 +10,7 @@ import TodoStateMachine, {
 
 import { todoTemplate } from './templates.js';
 import { todoFactory } from './factories.js';
+import { addTask } from './db.js';
 
 export class TodoApp {
   constructor() {
@@ -199,6 +200,13 @@ export class TodoApp {
   }
 
   handleClearCompleted() {
+    const completedTasks = this.todos.filter(todo => todo.completed);
+    
+    // Store each completed task in history
+    completedTasks.forEach(task => {
+      addTask(task);
+    });
+
     this.todos = this.todos.filter((todo) => !todo.completed);
     this.saveTodos();
     this.render();

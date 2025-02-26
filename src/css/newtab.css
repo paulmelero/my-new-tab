@@ -4,6 +4,8 @@
 
   --dim-background: rgba(255, 255, 255, 0.1);
 
+  --elevation-background: rgb(50, 50, 50);
+
   --input-placeholder-color: rgba(255, 255, 255, 0.5);
   --button-background: #3f5a40;
 
@@ -41,174 +43,241 @@
 
 body {
   margin: 0;
-  padding: var(--padding);
   background-color: var(--background-color);
   color: var(--text-color);
   font-family: var(--font-family);
-  min-height: 100vh;
 }
 
 .container {
   max-width: 600px;
+  width: 100%;
   margin: 0 auto;
   padding-top: 2rem;
 }
 
-.todo-input-container {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 2rem;
+.outter-wrapper {
+  padding: var(--padding);
+  height: calc(100vh - var(--padding) * 2);
+  display: grid;
+  grid-template-rows: 1fr 3rem;
 }
 
-.todo-input,
-.edit-input {
-  border: none;
-  border-radius: var(--border-radius);
-  background: var(--dim-background);
-  color: var(--text-color);
-  font-size: var(--font-size);
+@layer base {
+  a,
+  button {
+    color: var(--text-color);
+    opacity: 0.5;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  button {
+    font-family: var(--font-family);
+    appearance: none;
+    background: none;
+    outline: none;
+    box-shadow: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .flex {
+    display: flex;
+  }
 }
 
-.todo-input {
-  flex: 1;
-  padding: var(--input-padding);
+@layer todo-forms {
+  .todo-input-container {
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .todo-input,
+  .edit-input {
+    border: none;
+    border-radius: var(--border-radius);
+    background: var(--dim-background);
+    color: var(--text-color);
+    font-size: var(--font-size);
+  }
+
+  .todo-input {
+    flex: 1;
+    padding: var(--input-padding);
+  }
+
+  .todo-input:focus,
+  .edit-input:focus {
+    outline: 2px solid rgba(255, 255, 255, 0.3);
+    background: var(--dim-background);
+  }
+
+  .todo-input::placeholder,
+  .edit-input::placeholder {
+    color: var(--input-placeholder-color);
+  }
+
+  .add-button,
+  .clear-completed-button {
+    padding: var(--button-padding);
+    border: none;
+    border-radius: var(--border-radius);
+    background: var(--button-background);
+    color: white;
+    font-size: var(--font-size);
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  .add-button:hover,
+  .clear-completed-button:hover {
+    background: var(--action-hover-background);
+  }
+
+  .clear-completed-button {
+    margin: 2rem auto 0;
+  }
 }
 
-.todo-input:focus,
-.edit-input:focus {
-  outline: 2px solid rgba(255, 255, 255, 0.3);
-  background: var(--dim-background);
+@layer todo-list {
+  .todo-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .todo-item {
+    align-items: center;
+    gap: 1rem;
+    padding: var(--item-padding);
+    background: var(--dim-background);
+    border-radius: var(--border-radius);
+    margin-bottom: 0.5rem;
+    transition: transform 0.2s, background-color 0.2s;
+    cursor: move;
+    user-select: none;
+  }
+
+  .todo-item:hover {
+    background: var(--dim-background);
+  }
+
+  .todo-item.dragging {
+    opacity: 0.5;
+    background: var(--item-dragging-background);
+  }
+
+  .todo-item.drag-over {
+    border: 2px solid var(--item-drag-over-border);
+    transform: translateY(-4px);
+  }
+
+  .drag-handle {
+    color: var(--drag-handle-color);
+    cursor: move;
+    padding: 0 4px;
+    font-size: 1.2rem;
+  }
+
+  .todo-checkbox {
+    width: var(--checkbox-size);
+    height: var(--checkbox-size);
+    border-radius: var(--checkbox-border-radius);
+    cursor: pointer;
+    position: relative;
+    appearance: none;
+    border: 2px solid var(--checkbox-border);
+    background: none;
+  }
+
+  .todo-checkbox:checked {
+    background: var(--action-background);
+    border-color: var(--action-background);
+  }
+
+  .todo-checkbox:checked::after {
+    content: '✓';
+    position: absolute;
+    color: var(--action-color);
+    font-size: var(--action-font-size);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .todo-text {
+    flex: 1;
+    font-size: var(--font-size);
+    transition: opacity 0.2s;
+  }
+
+  .todo-text.completed {
+    opacity: 0.5;
+    text-decoration: line-through;
+  }
+
+  .delete-button {
+    background: none;
+    border: none;
+    color: var(--delete-action-color);
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: var(--delete-action-padding);
+    border-radius: 4px;
+    transition: all 0.2s;
+    margin-left: auto;
+  }
+
+  .delete-button:hover,
+  .delete-button:focus {
+    color: var(--delete-action-hover-color);
+    background: var(--delete-action-hover-background);
+  }
+
+  .delete-button:focus {
+    outline: 2px solid rgba(255, 255, 255, 0.3);
+    outline-offset: 2px;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 2rem;
+    color: var(--empty-state-color);
+    font-size: 1.1rem;
+  }
 }
 
-.todo-input::placeholder,
-.edit-input::placeholder {
-  color: var(--input-placeholder-color);
+@layer footer {
+  footer {
+    font-size: 0.8rem;
+    align-self: center;
+    justify-content: space-between;
+  }
 }
 
-.add-button,
-.clear-completed-button {
-  padding: var(--button-padding);
-  border: none;
-  border-radius: var(--border-radius);
-  background: var(--button-background);
-  color: white;
-  font-size: var(--font-size);
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
+@layer dialog {
+  dialog {
+    background: var(--elevation-background);
+    color: var(--text-color);
+    border: none;
+    border-radius: var(--border-radius);
+    min-width: 80vw;
+    min-height: 60vh;
+  }
 
-.add-button:hover,
-.clear-completed-button:hover {
-  background: var(--action-hover-background);
-}
+  ::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+  }
 
-.clear-completed-button {
-  margin: 2rem auto 0;
-}
+  .dialog-header {
+    justify-content: space-between;
+  }
 
-.todo-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.todo-item {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: var(--item-padding);
-  background: var(--dim-background);
-  border-radius: var(--border-radius);
-  margin-bottom: 0.5rem;
-  transition: transform 0.2s, background-color 0.2s;
-  cursor: move;
-  user-select: none;
-}
-
-.todo-item:hover {
-  background: var(--dim-background);
-}
-
-.todo-item.dragging {
-  opacity: 0.5;
-  background: var(--item-dragging-background);
-}
-
-.todo-item.drag-over {
-  border: 2px solid var(--item-drag-over-border);
-  transform: translateY(-4px);
-}
-
-.drag-handle {
-  color: var(--drag-handle-color);
-  cursor: move;
-  padding: 0 4px;
-  font-size: 1.2rem;
-}
-
-.todo-checkbox {
-  width: var(--checkbox-size);
-  height: var(--checkbox-size);
-  border-radius: var(--checkbox-border-radius);
-  cursor: pointer;
-  position: relative;
-  appearance: none;
-  border: 2px solid var(--checkbox-border);
-  background: none;
-}
-
-.todo-checkbox:checked {
-  background: var(--action-background);
-  border-color: var(--action-background);
-}
-
-.todo-checkbox:checked::after {
-  content: '✓';
-  position: absolute;
-  color: var(--action-color);
-  font-size: var(--action-font-size);
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.todo-text {
-  flex: 1;
-  font-size: var(--font-size);
-  transition: opacity 0.2s;
-}
-
-.todo-text.completed {
-  opacity: 0.5;
-  text-decoration: line-through;
-}
-
-.delete-button {
-  background: none;
-  border: none;
-  color: var(--delete-action-color);
-  cursor: pointer;
-  font-size: 1.2rem;
-  padding: var(--delete-action-padding);
-  border-radius: 4px;
-  transition: all 0.2s;
-  margin-left: auto;
-}
-
-.delete-button:hover,
-.delete-button:focus {
-  color: var(--delete-action-hover-color);
-  background: var(--delete-action-hover-background);
-}
-
-.delete-button:focus {
-  outline: 2px solid rgba(255, 255, 255, 0.3);
-  outline-offset: 2px;
-}
-
-.empty-state {
-  text-align: center;
-  padding: 2rem;
-  color: var(--empty-state-color);
-  font-size: 1.1rem;
+  #js-close {
+    background: var(--button-background);
+    color: white;
+    border-radius: var(--border-radius);
+  }
 }
