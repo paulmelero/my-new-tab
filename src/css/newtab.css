@@ -273,11 +273,20 @@ body {
 
   .dialog-header {
     justify-content: space-between;
+    align-items: center;
+  }
+
+  .dialog-controls {
+    gap: 1rem;
   }
 
   #js-close {
     background: var(--button-background);
     color: white;
     border-radius: var(--border-radius);
+  }
+
+  .empty-history { 
+    list-style: none;
   }
 }

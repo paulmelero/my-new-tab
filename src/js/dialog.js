@@ -7,6 +7,10 @@ const jsCloseBtn = dialog.querySelector('#js-close');
 const historyList = document.getElementById('historyList');
 const clearAllBtn = document.getElementById('clear-all-history');
 
+// todo add signals to keep a tasks list up to date here so I can
+// avoid showing the confirmation when the dialog is opened
+// and I click clear all history and there are no tasks
+
 showBtn.addEventListener('click', async () => {
   dialog.showModal();
   await refreshHistoryList();
