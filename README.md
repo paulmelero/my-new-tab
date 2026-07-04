@@ -6,6 +6,20 @@
 
 Personal **new tab** extension (Chromium Browsers only).
 
+## My New Tab
+
+My New Tab is a personal new tab extension for managing your daily tasks. It is a simple extension that sits in your _new tab page_ and allows you to manage your daily tasks at a glance.
+
+## Features
+
+<p align="center">
+  <img src="public/screenshot.png" />
+</p>
+
+- Todo list / Weekly view
+- History
+- Task management
+
 ## Load an unpacked extension
 
 - Clone the repo and install dependencies: `pnpm install`
