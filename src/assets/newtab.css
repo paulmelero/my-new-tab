@@ -69,7 +69,7 @@ body {
 }
 
 .container:has(.week-grid) {
-  max-width: none;
+  max-width: 100%;
 }
 
 .outter-wrapper {
@@ -102,6 +102,18 @@ body {
 
   .flex {
     display: flex;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    white-space: nowrap;
+    clip: rect(0 0 0 0);
+    overflow: hidden;
   }
 }
 
@@ -139,8 +151,8 @@ body {
 
   .todo-input,
   .edit-input,
-  .task-modal-field input[type="text"],
-  .task-modal-field input[type="date"] {
+  .task-modal-field input[type="date"],
+  .task-modal-field textarea {
     border: none;
     border-radius: var(--border-radius);
     background: var(--dim-background);
@@ -150,7 +162,8 @@ body {
   }
 
   .todo-input,
-  .task-modal-field input {
+  .task-modal-field input,
+  .task-modal-field textarea {
     padding: var(--input-padding);
   }
 
@@ -158,9 +171,18 @@ body {
     flex: 1;
   }
 
+  .task-modal-field textarea {
+    field-sizing: content;
+    resize: none;
+    min-height: 1lh;
+    max-height: 40vh;
+    overflow-y: auto;
+  }
+
   .todo-input:focus,
   .edit-input:focus,
-  .task-modal-field input:focus {
+  .task-modal-field input:focus,
+  .task-modal-field textarea:focus {
     outline: 2px solid rgba(255, 255, 255, 0.3);
     background: var(--dim-background);
   }
@@ -191,6 +213,11 @@ body {
   .clear-all-button:hover {
     background: var(--accent-hover-color);
     opacity: 1;
+  }
+
+  .add-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 
   .clear-completed-button {
@@ -422,9 +449,16 @@ body {
     background: rgba(0, 0, 0, 0.5);
   }
 
+  .dialog-content {
+    padding-left: var(--space-5);
+  }
+
   .dialog-header {
     justify-content: space-between;
     align-items: center;
+    padding-left: var(--space-5);
+    padding-right: var(--space-5);
+    padding-top: var(--space-2);
   }
 
   .dialog-controls {
@@ -436,10 +470,17 @@ body {
     color: white;
     border-radius: var(--border-radius);
     opacity: 1;
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
   }
 
   .empty-history {
     list-style: none;
+  }
+
+  ul.history-list {
+    list-style: none;
+    padding: 0;
   }
 
   .task-modal-form {
@@ -466,13 +507,15 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-top: var(--space-2);
-  }
-
-  .task-modal-actions-right {
     gap: var(--space-2);
+  }
+  .cancel-button {
+    margin-left: auto;
   }
 
   .task-modal-delete {
+    margin-left: 0;
+    font-size: var(--font-size);
     opacity: 0.7;
   }
 }

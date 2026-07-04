@@ -22,6 +22,6 @@ function submit() {
       placeholder="Add a new task..."
       @keypress.enter="submit"
     />
-    <button class="add-button" @click="submit">Add</button>
+    <button class="add-button" :disabled="!text.trim()" @click="submit">Add</button>
   </div>
 </template>

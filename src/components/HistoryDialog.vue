@@ -27,7 +27,7 @@ defineExpose({ open });
       <h2>History</h2>
       <div class="dialog-controls flex">
         <button class="clear-all-button" @click="clearAll">Clear All</button>
-        <button id="js-close" @click="close">&times; Close</button>
+        <button id="js-close" @click="close">Ｘ <span class="visually-hidden">Close</span></button>
       </div>
     </div>
     <div class="dialog-content">

@@ -49,7 +49,7 @@ defineExpose({ open });
     <form class="task-modal-form" @submit.prevent="save">
       <label class="task-modal-field">
         <span>Title</span>
-        <input v-model="text" type="text" name="title" required />
+        <textarea v-model="text" name="title" rows="1" required></textarea>
       </label>
       <label class="task-modal-field">
         <span>Due date</span>
@@ -63,10 +63,8 @@ defineExpose({ open });
         <button type="button" class="delete-button task-modal-delete" @click="remove">
           Delete
         </button>
-        <div class="task-modal-actions-right flex">
-          <button type="button" @click="close">Cancel</button>
-          <button type="submit" class="task-modal-save">Save</button>
-        </div>
+        <button type="button" class="cancel-button" @click="close">Cancel</button>
+        <button type="submit" class="task-modal-save">Save</button>
       </div>
     </form>
   </dialog>
