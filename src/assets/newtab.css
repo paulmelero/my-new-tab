@@ -10,7 +10,7 @@
   --button-background: #3f5a40;
 
   --action-background: #4caf50;
-  --action-hover-background: okclh(from var(--action-background) l c h);
+  --action-hover-background: oklch(from var(--action-background) l c h);
   --action-color: white;
   --delete-action-hover-color: #ff4444;
   --delete-action-hover-background: rgba(255, 0, 0, 0.1);
@@ -22,7 +22,7 @@
   --delete-action-color: rgba(255, 255, 255, 0.5);
   --empty-state-color: rgba(255, 255, 255, 0.5);
 
-  --font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
   --font-size: 1rem;
 
   --padding: 20px;
@@ -155,7 +155,9 @@ body {
     background: var(--dim-background);
     border-radius: var(--border-radius);
     margin-bottom: 0.5rem;
-    transition: transform 0.2s, background-color 0.2s;
+    transition:
+      transform 0.2s,
+      background-color 0.2s;
     cursor: move;
     user-select: none;
   }
@@ -198,7 +200,7 @@ body {
   }
 
   .todo-checkbox:checked::after {
-    content: '✓';
+    content: "✓";
     position: absolute;
     color: var(--action-color);
     font-size: var(--action-font-size);
@@ -286,7 +288,7 @@ body {
     border-radius: var(--border-radius);
   }
 
-  .empty-history { 
+  .empty-history {
     list-style: none;
   }
 }

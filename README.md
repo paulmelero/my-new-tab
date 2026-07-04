@@ -1,10 +1,10 @@
 # My New Tab
 
 <p align="center">
-  <img src="icons/android-chrome-128x128.png" />
+  <img src="public/icons/android-chrome-128x128.png" />
 </p>
 
-Personal new tab extension (Chromium Browsers only).
+Personal **new tab** extension (Chromium Browsers only).
 
 ## Load an unpacked extension
 

@@ -5,7 +5,13 @@ export type ProtoToDo = {
 };
 
 export type ToDo = ProtoToDo & {
-  id: string;
+  id: number;
 };
 
 export type ToDoList = ToDo[];
+
+export type HistoryTask = {
+  id: number;
+  text: string;
+  completedAt: number;
+};

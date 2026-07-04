@@ -5,7 +5,7 @@
   "description": "A minimal new tab page with a simple todo app. No tracking, no ads, no BS",
   "permissions": [],
   "chrome_url_overrides": {
-    "newtab": "src/newtab.html"
+    "newtab": "index.html"
   },
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self';"
