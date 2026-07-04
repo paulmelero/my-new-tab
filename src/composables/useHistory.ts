@@ -25,8 +25,8 @@ async function getTasks(): Promise<HistoryTask[]> {
 
 export async function clearOldTasks() {
   const twoWeeksAgo = Date.now() - 14 * 24 * 60 * 60 * 1000;
-  await localforage.iterate((_value, key: string) => {
-    if (Number(key) < twoWeeksAgo) {
+  await localforage.iterate((value: Omit<HistoryTask, "id">, key: string) => {
+    if (value.completedAt < twoWeeksAgo) {
       void localforage.removeItem(key);
     }
   });
@@ -39,9 +39,8 @@ async function clearAllTasks() {
 async function clearTasksByDate(date: number) {
   const startOfDay = new Date(date).setHours(0, 0, 0, 0);
   const endOfDay = new Date(date).setHours(23, 59, 59, 999);
-  await localforage.iterate((_value, key: string) => {
-    const taskDate = Number(key);
-    if (taskDate >= startOfDay && taskDate <= endOfDay) {
+  await localforage.iterate((value: Omit<HistoryTask, "id">, key: string) => {
+    if (value.completedAt >= startOfDay && value.completedAt <= endOfDay) {
       void localforage.removeItem(key);
     }
   });
@@ -52,7 +51,7 @@ export function useHistory() {
 
   const groupedByDate = computed(() => {
     return tasks.value.reduce<Record<number, HistoryTask[]>>((acc, task) => {
-      const date = new Date(task.id).setHours(0, 0, 0, 0);
+      const date = new Date(task.completedAt).setHours(0, 0, 0, 0);
       (acc[date] ??= []).push(task);
       return acc;
     }, {});

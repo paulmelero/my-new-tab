@@ -26,7 +26,7 @@ defineExpose({ open });
     <div class="dialog-header flex">
       <h2>History</h2>
       <div class="dialog-controls flex">
-        <button id="clear-all-history" @click="clearAll">Clear All</button>
+        <button class="clear-all-button" @click="clearAll">Clear All</button>
         <button id="js-close" @click="close">&times; Close</button>
       </div>
     </div>

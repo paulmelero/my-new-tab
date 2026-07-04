@@ -8,7 +8,16 @@ Personal **new tab** extension (Chromium Browsers only).
 
 ## Load an unpacked extension
 
-- Download the content of the repo
+- Clone the repo and install dependencies: `pnpm install`
+- Build it: `pnpm run build` (outputs to `dist/`)
 - From your extensions management UI, enable "Developer Mode"
 - Click on "Load unpacked"
-- Select the folder where the `manifest.json` file is.
+- Select the `dist/` folder
+
+## Build a signed .crx
+
+`pnpm run build:crx` builds the extension and packs it into a `my-new-tab.crx` file using your local Chrome/Chromium install (via `chrome --pack-extension`, no extra dependency).
+
+- Requires Chrome or Chromium installed locally. If it isn't found automatically, point at it with `CHROME_PATH=/path/to/chrome pnpm run build:crx`.
+- The first run generates a `my-new-tab.pem` signing key in the project root. **This key is gitignored and must never be committed** — it determines the extension's permanent ID. Back it up somewhere safe.
+- To reuse an existing key on later builds (keeping the same extension ID), set `CRX_KEY_PATH=/path/to/my-new-tab.pem pnpm run build:crx`.
